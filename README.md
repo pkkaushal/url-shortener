@@ -38,14 +38,18 @@ Example configuration for MySQL:
 properties
 
 spring.datasource.url=jdbc:mysql://localhost:3306/url_shortener_db
+
 spring.datasource.username=*****
+
 spring.datasource.password=yourpassword
+
 spring.jpa.hibernate.ddl-auto=update
-3. Build the project:
+
+## 3. Build the project:
 If you're using Maven, run the following command to build the project:
 
 mvn clean install
-4. Run the project:
+## 4. Run the project:
 To start the Spring Boot application, run:
 
 
