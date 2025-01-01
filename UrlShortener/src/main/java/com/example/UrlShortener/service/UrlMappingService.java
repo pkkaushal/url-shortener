@@ -10,10 +10,12 @@ import java.net.InetAddress;
 import java.net.URI;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
 public class UrlMappingService {
+
     @Autowired
     private URLMappingRepository urlMappingRepository;
 
@@ -21,20 +23,37 @@ public class UrlMappingService {
         String shortCode;
         try {
             longUrl = validateAndNormalizeUrl(longUrl);
-            shortCode = getRandomString(8);
 
-            UrlMapping urlMapping = new UrlMapping();
-            urlMapping.setLongUrl(longUrl);
-            urlMapping.setShortCode(shortCode);
-            urlMapping.setTimestamp(LocalDateTime.now());
+            Optional<UrlMapping> existUrl = urlMappingRepository.findByLongUrl(longUrl);
+            if(existUrl.isPresent()){
+                return existUrl.get().getShortCode();
+            }
+            else {
 
-            urlMappingRepository.save(urlMapping);
+                shortCode = generateUniqueCode(8);
+
+                UrlMapping urlMapping = new UrlMapping();
+                urlMapping.setLongUrl(longUrl);
+                urlMapping.setShortCode(shortCode);
+                urlMapping.setTimestamp(LocalDateTime.now());
+
+                urlMappingRepository.save(urlMapping);
+            }
         } catch (Exception ex) {
             throw new RuntimeException("Not able to shorten url");
         }
         return shortCode;
 
     }
+
+    private String generateUniqueCode(int length) {
+        String shortCode;
+        do {
+            shortCode = getRandomString(length);
+        } while (urlMappingRepository.existsByShortCode(shortCode));
+        return shortCode;
+    }
+
 
     public String getLongUrl(String shortCode){
         return urlMappingRepository.findByShortCode(shortCode).

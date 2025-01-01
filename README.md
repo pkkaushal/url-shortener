@@ -12,6 +12,8 @@ A URL Shortener service built using Spring Boot.
 - **Backend:** Spring Boot
 - **Database:** MySQL (or any preferred RDBMS)
 - **Build Tool:** Maven
+- **Testing Frameworks: **JUnit, Mockito
+
 
 ## Setup and Run
 1. Clone the repository:
