@@ -93,5 +93,89 @@ mvn -Dtest=UrlControllerTest test
 
 
 
+# Performance Test Report
+
+This document provides a summary of the performance test results based on the conducted load test.
+
+---
+
+## **Overview**
+
+The performance test simulates traffic for two endpoints:  
+
+1. **/shorten**: Returns HTTP 200.  
+2. **/redirect**: Returns HTTP 302.  
+
+The test metrics help analyze latency, throughput, and system behavior under varying loads.  
+
+---
+
+## **Summary of Results**
+
+### **Key Metrics**
+
+- **Total Requests**:  
+  - `/shorten`: 664  
+  - `/redirect`: 332  
+
+- **Iterations**: 332  
+
+### **Latency Analysis**
+
+| Metric                | Avg         | Median (p50) | 90th Percentile (p90) | 99th Percentile (p99) | Min       | Max       |
+|-----------------------|-------------|--------------|-----------------------|-----------------------|-----------|-----------|
+| **Request Duration**  | 91.35ms     | 67.98ms      | 167.25ms             | 182.25ms             | 2.78ms    | 1.01s     |
+| **Receiving Time**    | 468.35µs    | 429.2µs      | 996.37µs             | 1.09ms               | 0s        | 1.47ms    |
+| **Waiting Time**      | 90.85ms     | 67.57ms      | 167.16ms             | 182.04ms             | 1.9ms     | 1.01s     |
+
+---
+
+## **Interpretation of Results**
+
+### **1. Response Time Percentiles**  
+
+- **p50 (Median):**  
+  The median request duration is **67.98ms**, indicating that most requests complete quickly.  
+
+- **p90 (90th Percentile):**  
+  The duration for 90% of requests is **167.25ms** or less, showing acceptable performance under moderate load.  
+
+- **p99 (99th Percentile):**  
+  99% of requests complete within **182.25ms**, demonstrating minimal outliers and good performance even under heavy traffic.
+
+### **2. Throughput**  
+- **Requests per Second (RPS):**  
+  - `/shorten`: 3.68 RPS  
+  - `/redirect`: 1.83 RPS  
+
+---
+
+---
+
+## **Test Configuration**
+
+- **Virtual Users (VUs):** 5000  
+- **Test Duration:** ~2 minutes  
+- **Endpoints Tested:**  
+  - `/shorten` (returns HTTP 200)  
+  - `/redirect` (returns HTTP 302)  
+
+---
+
+## **Future Improvements**
+
+1. **Increase Load:** Gradually increase the number of Virtual Users (VUs) to identify the system's breaking point.  
+2. **Error Handling:** Ensure no failed requests (currently 0% failures).  
+3. **Detailed Monitoring:** Include deeper analysis of CPU, memory, and database performance during the test.
+
+---
+
+## **Conclusion**
+
+The system demonstrates consistent performance with minimal variability, as reflected in the small difference between **p90** and **p99**. Further testing under increased load is recommended to ensure scalability.
+
+
+
+
 <img width="829" alt="image" src="https://github.com/user-attachments/assets/25df033f-c6a5-43e9-855e-56816f11754c" />
 
