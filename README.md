@@ -96,7 +96,7 @@ Redirects to the original long URL.
 
 ### 3. Bulk URL Creation (Enterprise Users)
 
-**POST** `/api/bulk-shorten`
+**POST** `/api/batch`
 
 #### Request:
 
