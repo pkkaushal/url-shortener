@@ -216,7 +216,7 @@ public class UrlMappingService {
         User user=userRepository.findUserByApiKey(apikey)
                 .orElseThrow(()->new RuntimeException("User not found"));
 
-        UrlMapping urlMapping=urlMappingRepository.findByShortCodeAndDeletedAtIsNull(shortCode)
+        UrlMapping urlMapping=urlMappingRepository.findByShortCodeAndPasswordAndDeletedAtIsNull(shortCode,password)
                 .orElseThrow(()->new RuntimeException("Short code not found"));
 
         if(urlMapping.getUser().getId()!=user.getId()) {

@@ -66,9 +66,9 @@ public class UrlController {
     }
 
     @DeleteMapping("/shorten/{shortCode}")
-    public ResponseEntity<String> deleteShortUrl(@PathVariable String shortCode, @RequestHeader("api_key") String apiKey) {
+    public ResponseEntity<String> deleteShortUrl(@PathVariable String shortCode, @RequestHeader("api_key") String apiKey,@RequestParam(required = false)String password) {
 
-        boolean isDeleted = urlMappingService.deleteShortUrl(shortCode, apiKey);
+        boolean isDeleted = urlMappingService.deleteShortUrl(shortCode, apiKey,password);
 
         if (isDeleted) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Short url has been deleted");
