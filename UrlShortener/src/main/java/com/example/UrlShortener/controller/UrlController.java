@@ -77,7 +77,7 @@ public class UrlController {
         }
     }
 
-
+//method to get top 10
     @GetMapping("/top10")
     public ResponseEntity<List<UrlMapping>> getTop10() {
         if (urlMappingService.getTop10UrlByClickCountAndLastAccess().isEmpty()) {
